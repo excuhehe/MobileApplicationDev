@@ -17,7 +17,7 @@ import com.airbnb.lottie.LottieAnimationView;
 public class PlaceholderFragment extends Fragment {
     private LottieAnimationView animationView;
 
-    private ListView listView;
+//    private ListView listView;
 
     private static final String EXTRA_EXIT_ANIM = "extra_exit_anim";
 
@@ -28,10 +28,11 @@ public class PlaceholderFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_placeholder, container, false);
         animationView = view.findViewById(R.id.animation_view);
 //        listView = view.findViewById(R.id.list_view);
-//        String[] data={"菠萝","芒果","石榴","葡萄"};
-//        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,data);
-//        listView.setAdapter(adapter);
 
+//        String[] data={"","芒果","石榴","葡萄"};
+//        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,data);
+////        listView.setAdapter(adapter);
+//        listView.setVisibility(View.INVISIBLE);
         return view;
     }
 
@@ -48,7 +49,13 @@ public class PlaceholderFragment extends Fragment {
 //                intent.putExtra(EXTRA_EXIT_ANIM, R.anim.fade_out);
 //                startActivity(intent);
 //                getActivity().overridePendingTransition(R.anim.fade_in, 0);
-
+//                animationView.setVisibility(View.INVISIBLE);
+//                listView.setVisibility(View.VISIBLE);
+                getFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+                        .replace(R.id.fragment_container, new HelloFragment())
+                        .addToBackStack(null).commit();
+                animationView.setVisibility(View.INVISIBLE);
             }
         }, 5000);
     }

@@ -18,6 +18,8 @@ public class Ch3Ex3Activity extends AppCompatActivity {
 
     private static final int PAGE_COUNT = 2;
 
+    private static final String EXTRA_EXIT_ANIM = "extra_exit_anim";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +38,11 @@ public class Ch3Ex3Activity extends AppCompatActivity {
 
             }
 
+//            @Override
+//            public void onPageSelected(){
+//
+//            }
+
             @Override
             public int getCount() {
                 return PAGE_COUNT;
@@ -48,9 +55,12 @@ public class Ch3Ex3Activity extends AppCompatActivity {
                 }else
                     return "我的好友";
             }
+
         });
 
         // TODO: ex3-2, 添加 TabLayout 支持 Tab
         tabLayout.setupWithViewPager(pager);
     }
+
+
 }
