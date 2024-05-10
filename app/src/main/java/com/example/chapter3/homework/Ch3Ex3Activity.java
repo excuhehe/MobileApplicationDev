@@ -20,6 +20,8 @@ public class Ch3Ex3Activity extends AppCompatActivity {
 
     private static final String EXTRA_EXIT_ANIM = "extra_exit_anim";
 
+    private int exitAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,13 +31,10 @@ public class Ch3Ex3Activity extends AppCompatActivity {
         // TODO: ex3-1. 添加 ViewPager 和 Fragment 做可滑动界面
         ViewPager pager = findViewById(R.id.view_pager);
         TabLayout tabLayout = findViewById(R.id.tab_layout);
-
-
         pager.setAdapter(new FragmentPagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int i) {
                 return  new PlaceholderFragment();
-
             }
 
 //            @Override
@@ -60,7 +59,17 @@ public class Ch3Ex3Activity extends AppCompatActivity {
 
         // TODO: ex3-2, 添加 TabLayout 支持 Tab
         tabLayout.setupWithViewPager(pager);
+
+
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        if (exitAnim != 0) {
+//            overridePendingTransition(0, exitAnim);
+            System.out.println("exitAnim"+exitAnim);
+        }
+    }
 
 }

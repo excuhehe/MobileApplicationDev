@@ -17,7 +17,7 @@ import com.airbnb.lottie.LottieAnimationView;
 public class PlaceholderFragment extends Fragment {
     private LottieAnimationView animationView;
 
-//    private ListView listView;
+    private ListView listView;
 
     private static final String EXTRA_EXIT_ANIM = "extra_exit_anim";
 
@@ -27,14 +27,15 @@ public class PlaceholderFragment extends Fragment {
         // TODO ex3-3: 修改 fragment_placeholder，添加 loading 控件和列表视图控件
         View view = inflater.inflate(R.layout.fragment_placeholder, container, false);
         animationView = view.findViewById(R.id.animation_view);
-//        listView = view.findViewById(R.id.list_view);
+        listView = view.findViewById(R.id.list_view);
 
-//        String[] data={"","芒果","石榴","葡萄"};
-//        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,data);
-////        listView.setAdapter(adapter);
-//        listView.setVisibility(View.INVISIBLE);
+        String[] data={"","芒果","石榴","葡萄"};
+        ArrayAdapter<String> adapter=new ArrayAdapter<>(getActivity(),android.R.layout.simple_list_item_1,data);
+        listView.setAdapter(adapter);
+
         return view;
     }
+
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -51,13 +52,31 @@ public class PlaceholderFragment extends Fragment {
 //                getActivity().overridePendingTransition(R.anim.fade_in, 0);
 //                animationView.setVisibility(View.INVISIBLE);
 //                listView.setVisibility(View.VISIBLE);
-                getFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
-                        .replace(R.id.fragment_container, new HelloFragment())
-                        .addToBackStack(null).commit();
-                animationView.setVisibility(View.INVISIBLE);
+//                getFragmentManager().beginTransaction()
+//                        .setCustomAnimations(R.anim.fade_in,R.anim.fade_out)
+//                        .replace(R.id.fragment_container, new HelloFragment())
+//                        .addToBackStack(null).commit();
+//                animationView.setVisibility(View.INVISIBLE);
+
+                System.out.println("postDelayed1111");
+                Intent intent = new Intent(getActivity(), getActivity().getClass());
+                intent.putExtra(EXTRA_EXIT_ANIM, R.anim.fade_out);
+                boolean is_transitioned = getActivity().getIntent().getBooleanExtra("transition_data",false);
+                System.out.println("bool:"+is_transitioned);
+                if (!is_transitioned){
+                    intent.putExtra("transition_data", true);
+                    startActivity(intent);
+                    getActivity().overridePendingTransition(R.anim.fade_in, 0);
+                }
             }
-        }, 5000);
+        }, 3000);
+
+        boolean is_transitioned = getActivity().getIntent().getBooleanExtra("transition_data",false);
+        if (is_transitioned){
+            listView.setVisibility(View.VISIBLE);
+            animationView.setVisibility(View.INVISIBLE);
+        }
+
     }
 }
 
